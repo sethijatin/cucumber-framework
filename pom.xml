@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>cucumber</groupId>
+    <artifactId>automation</artifactId>
+    <version>1.0</version>
+
+    <repositories>
+
+        <repository>
+            <id>OSSRH</id>
+            <name>Open Source Project Repository Hosting</name>
+            <releases>
+                <enabled>true</enabled>
+                <updatePolicy>always</updatePolicy>
+                <checksumPolicy>warn</checksumPolicy>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+                <updatePolicy>always</updatePolicy>
+                <checksumPolicy>warn</checksumPolicy>
+            </snapshots>
+            <url>https://oss.sonatype.org/content/groups/public/</url>
+            <layout>default</layout>
+        </repository>
+
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
+
+    </repositories>
+
+    <pluginRepositories>
+        <pluginRepository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </pluginRepository>
+    </pluginRepositories>
+
+    <dependencies>
+
+        <!-- QA DEPENDENCIES BEGIN HERE -->
+
+        <!-- Cucumber project from Slaout Dependencies -->
+
+        <dependency>
+            <groupId>com.github.slaout.fork.info.cukes</groupId>
+            <artifactId>cucumber-core</artifactId>
+            <version>1.2.4-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.github.slaout.fork.info.cukes</groupId>
+            <artifactId>cucumber-java</artifactId>
+            <version>1.2.4-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.github.slaout.fork.info.cukes</groupId>
+            <artifactId>cucumber-junit</artifactId>
+            <version>1.2.4-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.github.slaout.fork.info.cukes</groupId>
+            <artifactId>cucumber-picocontainer</artifactId>
+            <version>1.2.4-SNAPSHOT</version>
+        </dependency>
+
+        <!-- Cucumber project from Slaout Dependencies End Here -->
+
+        <!-- Dependencies for jackson begin here here -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.dataformat</groupId>
+            <artifactId>jackson-dataformat-yaml</artifactId>
+            <version>2.3.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.2.3</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.4</version>
+        </dependency>
+
+        <!-- Dependencies for jackson end here here -->
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-java</artifactId>
+            <version>3.4.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.appium</groupId>
+            <artifactId>java-client</artifactId>
+            <version>4.1.2</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.saucelabs</groupId>
+            <artifactId>saucerest</artifactId>
+            <version>1.0.35</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/info.cukes/gherkin -->
+        <dependency>
+            <groupId>info.cukes</groupId>
+            <artifactId>gherkin</artifactId>
+            <version>2.12.2</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.jetbrains</groupId>
+            <artifactId>annotations-java5</artifactId>
+            <version>15.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.github.sethijatin</groupId>
+            <artifactId>creative-element</artifactId>
+            <version>1.1</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- QA DEPENDENCIES END HERE -->
+    </dependencies>
+
+    <build>
+
+        <plugins>
+
+            <plugin>
+                <groupId>com.github.temyers</groupId>
+                <artifactId>cucumber-jvm-parallel-plugin</artifactId>
+                <version>1.0.1</version>
+                <executions>
+                    <execution>
+                        <id>generateRunners</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>generateRunners</goal>
+                        </goals>
+                        <configuration>
+                            <strict>false</strict>
+                            <glue>StepDefinitions</glue>
+                            <featuresDirectory>src/test/resources/features_automation</featuresDirectory>
+                            <cucumberOutputDir>src/test/JsonReports</cucumberOutputDir>
+                            <format>json</format>
+                            <tags>"~@search"</tags>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.19</version>
+                <configuration>
+                    <additionalClasspathElements>
+                        <additionalClasspathElement>resources</additionalClasspathElement>
+                    </additionalClasspathElements>
+                    <forkCount>1</forkCount>
+                    <reuseForks>false</reuseForks>
+                    <includes>
+                        <include>**/*IT.class</include>
+                    </includes>
+
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.7</source>
+                    <target>1.7</target>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>com.github.sethijatin</groupId>
+                <artifactId>cucumber-feature-distributor</artifactId>
+                <version>1.6</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>distribute-features</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <featureDirectory>src/test/Resources/features/</featureDirectory>
+                    <distributedFeatureDirectory>src/test/Resources/features_automation/</distributedFeatureDirectory>
+                    <pathToBrowserJSON>src/test/Resources/configurations/browser-config.yaml</pathToBrowserJSON>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>com.github.sethijatin</groupId>
+                <artifactId>cucumber-jrc-maven-plugin</artifactId>
+                <version>1.6</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>compile-report</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <readJsonReportsFromFolder>src/test/JsonReports</readJsonReportsFromFolder>
+                    <writeCompiledReportsToFolder>src/test/JsonReportsCompiled</writeCompiledReportsToFolder>
+                </configuration>
+            </plugin>
+
+
+        </plugins>
+
+    </build>
+
+</project>

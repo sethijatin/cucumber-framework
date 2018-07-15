@@ -1,0 +1,36 @@
+## This file stores the device, and browser configurations which are supposed to be used by the class Driver Setup ##
+## Sample configuration for desktop versions (key value pairs as described on Sauce Labs platform configurator. ##
+## --> https://wiki.saucelabs.com/display/DOCS/Platform+Configurator#/ <-- ##
+## --> https://wiki.saucelabs.com/display/DOCS/Test+Configuration+Options#TestConfigurationOptions-TestNames <-- #
+# > See Link https://wiki.saucelabs.com/display/DOCS/Supported+Android+Emulators < #
+
+DesktopDevices: #Do not change the nae DesktopDevices. This is hard mapped in the data mapper class.
+  Edge_Win_10_1920x1080: # User defined device tag.
+    priority_setting: false # Any number of properties per tag.
+    desiredCapabilities: edge
+    browser: Edge
+    platform: Windows 10
+    version: 14.14393
+    screenResolution: 1920x1080
+
+TabletDevices: #Do not change the nae TabletDevices. This is hard mapped in the data mapper class.
+  iOS_iPad_Air_Portrait: # User defined device tag.
+    priority_setting: true # Any number of properties per tag.
+    desiredCapabilities: iPhone
+    appiumVersion: 1.6.4
+    deviceName: iPad Air 2 Simulator
+    deviceOrientation: portrait
+    platformName: iOS
+    browserName: Safari
+    platformVersion: 10.3
+
+MobileDevices: #Do not change the nae MobileDevices. This is hard mapped in the data mapper class.
+  iOS_iPhone_6s: # User defined device tag.
+    priority_setting: true # Any number of properties per tag.
+    desiredCapabilities: iPhone
+    appiumVersion: 1.6.4
+    deviceName: iPhone 6s Simulator
+    deviceOrientation: portrait
+    platformName: iOS
+    browserName: Safari
+    platformVersion: 10.3
